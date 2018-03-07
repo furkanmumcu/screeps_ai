@@ -23,9 +23,20 @@ var roleRepairer = {
 
             // if we find one
             if (structure != undefined) {
+                console.log(structure.hits)
+                console.log(structure.hits<2000)
+                if(structure.structureType == STRUCTURE_ROAD && structure.hits < 2000){
+                    console.log('girdim');
+                    if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
+                        // move towards it
+                        creep.moveTo(structure,{visualizePathStyle: {stroke: '#FE2EC8'}});
+                    }
+                    //console.log(structure.hits);
+                }
                 // try to repair it, if it is out of range
-                if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
+                else if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
                     // move towards it
+                    console.log('girdim 2');
                     creep.moveTo(structure);
                 }
             }
