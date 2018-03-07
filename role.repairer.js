@@ -3,17 +3,17 @@ var roleBuilder = require('role.builder');
 var roleRepairer = {
 
     /** @param {Creep} creep **/
-    run: function(creep) {
-        if(creep.memory.building && creep.carry.energy == 0) {
-            creep.memory.building = false;
+    run: function(creep) { //repairing
+        if(creep.memory.repairing && creep.carry.energy == 0) {
+            creep.memory.repairing = false;
             creep.say('🔄 harvest');
         }
-        if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.building = true;
+        if(!creep.memory.repairing && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.repairing = true;
             creep.say('🚧 build');
         }
 
-        if(creep.memory.building) {
+        if(creep.memory.repairing) {
             var structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 // the second argument for findClosestByPath is an object which takes
                 // a property called filter which can be a function
@@ -34,7 +34,7 @@ var roleRepairer = {
                     //console.log(structure.hits);
                 }
                 // try to repair it, if it is out of range
-                else if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
+                else if (creep.repair(structure) == ERR_NOT_IN_RANGE && structure.structureType != STRUCTURE_ROAD) {
                     // move towards it
                     console.log('girdim 2');
                     creep.moveTo(structure);
