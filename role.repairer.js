@@ -3,17 +3,17 @@ var roleBuilder = require('role.builder');
 var roleRepairer = {
 
     /** @param {Creep} creep **/
-    run: function(creep) { //repairing
-        if(creep.memory.repairing && creep.carry.energy == 0) {
-            creep.memory.repairing = false;
+    run: function(creep) {
+        if(creep.memory.building && creep.carry.energy == 0) {
+            creep.memory.building = false;
             creep.say('🔄 harvest');
         }
-        if(!creep.memory.repairing && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.repairing = true;
+        if(!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.building = true;
             creep.say('🚧 build');
         }
 
-        if(creep.memory.repairing) {
+        if(creep.memory.building) {
             var structure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
                 // the second argument for findClosestByPath is an object which takes
                 // a property called filter which can be a function
@@ -23,20 +23,9 @@ var roleRepairer = {
 
             // if we find one
             if (structure != undefined) {
-                console.log(structure.hits)
-                console.log(structure.hits<2000)
-                if(structure.structureType == STRUCTURE_ROAD && structure.hits < 2000){
-                    console.log('girdim');
-                    if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
-                        // move towards it
-                        creep.moveTo(structure,{visualizePathStyle: {stroke: '#FE2EC8'}});
-                    }
-                    //console.log(structure.hits);
-                }
                 // try to repair it, if it is out of range
-                else if (creep.repair(structure) == ERR_NOT_IN_RANGE && structure.structureType != STRUCTURE_ROAD) {
+                if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
                     // move towards it
-                    console.log('girdim 2');
                     creep.moveTo(structure);
                 }
             }

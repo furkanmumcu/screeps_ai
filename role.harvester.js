@@ -6,11 +6,9 @@ var roleHarvester = {
     run: function(creep) {
         if(creep.memory.processing && creep.carry.energy == 0) {
             creep.memory.processing = false;
-            //creep.say('?? harvest');
         }
         if(!creep.memory.processing && creep.carry.energy == creep.carryCapacity) {
             creep.memory.processing = true;
-            //creep.say('?? build');
         }
 
 
@@ -36,7 +34,6 @@ var roleHarvester = {
                 }
             }
             else{ // no energy needed structers
-                //console.log("hi")
                 roleBuilder.run(creep);
 
             }
