@@ -2,6 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
+require('prototype.spawn');
 
 module.exports.loop = function () {
 
@@ -12,19 +13,19 @@ module.exports.loop = function () {
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /*
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
 
     var harvesterCount = 5;
-    var upgraderCount = 6;
+    var upgraderCount = 5;
     var builderCount = 5;
     var repairerCount = 2;
 
-    console.log('Current Harvester count: ' + harvesters.length + ' required harvesters: ' + harvesterCount);
-    console.log(harvesterCount==harvesters.length);
+    //console.log('Current Harvester count: ' + harvesters.length + ' required harvesters: ' + harvesterCount);
+    //console.log(harvesterCount==harvesters.length);
 
     if(harvesters.length < harvesterCount) {
         var newName = 'Harvester' + Game.time;
@@ -54,7 +55,9 @@ module.exports.loop = function () {
         Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE], newName,
             {memory: {role: 'builder'}});
     }
+    */
 
+    Game.spawns['Spawn1'].spawnAI();
 
     if(Game.spawns['Spawn1'].spawning) {
         var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
@@ -67,10 +70,10 @@ module.exports.loop = function () {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /*    var tower = Game.getObjectById('TOWER_ID');
+    var tower = Game.getObjectById('TOWER_ID');
         if(tower) {
             var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                filter: (structure) => structure.hits < structure.hitsMax
+                filter: (structure) => structure.hits < (structure.hitsMax)/2
             });
             if(closestDamagedStructure) {
                 tower.repair(closestDamagedStructure);
@@ -80,7 +83,7 @@ module.exports.loop = function () {
             if(closestHostile) {
                 tower.attack(closestHostile);
             }
-        }*/
+        }
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
